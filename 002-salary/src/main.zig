@@ -4,11 +4,28 @@ pub fn main() !void {
     std.debug.print("💵 Welcome to the Salary Estimator App!\n", .{});
     std.debug.print("\n", .{});
 
-    std.debug.print("Enter your Currency: [USD | PHP]", .{});
+    // Generating Random Numbers
 
-    var currency: i64 = ask_user();
+    var seed: u64 = undefined;
+    try std.posix.getrandom(std.mem.asBytes(&seed));
 
-    std.debug.print("{s} currency", .{currency});
+    var prng = std.rand.DefaultPrng.init(seed);
+    const rand = prng.random();
+
+    // Taking User Input
+    while (true) {
+        const stdout = std.io.getStdOut().writer();
+        const stdin = std.io.getStdIn().reader();
+
+        const bare_line = try stdin.readUntilDelimiterAlloc(std.heap.page_allocator, '\n', 8192);
+        defer std.heap.page_allocator.free(bare_line);
+
+        const line = std.mem.trim(u8, bare_line, '\r');
+    }
+    try stdout.print("Not-so random number: {d}\n", .{rand.intRangeAtMost(u8, 1, 100)});
+    // std.debug.print("Enter your Currency: [USD | PHP]", .{});
+
+    // std.debug.print("{s} currency", .{currency});
 
     // // Prints to stderr (it's a shortcut based on `std.io.getStdErr()`)
     // std.debug.print("All your {s} are belong to us.\n", .{"codebase"});
@@ -23,21 +40,6 @@ pub fn main() !void {
     // try stdout.print("Run `zig build test` to run the tests.\n", .{});
 
     // try bw.flush(); // don't forget to flush!
-}
-
-fn ask_user() !i64 {
-    const stdin = std.io.getStdIn().reader();
-    const stdout = std.io.getStdOut().writer();
-
-    var buf: [10]u8 = undefined;
-
-    try stdout.print("A number please: ", .{});
-
-    if (try stdin.readUntilDelimiterOrEof(buf[0..], '\n')) |user_input| {
-        return std.fmt.parseInt(i64, user_input, 10);
-    } else {
-        return @as(i64, 0);
-    }
 }
 
 // IDK How to write tests :D
