@@ -4,9 +4,9 @@ Learning Zig because I wanna get into low-level programming and do some cool stu
 
 Projects on this repo:
 
-1. [ ] Hello World - Zig basics.
-2. [ ] Tried Passwords CLI - Recreation of my [Go implementation](https://github.com/Blankeos/tried-passwords-cli).
-3. [ ] Salary - Console app that estimates salary based on hourly, daily, monthly, and yearly rates.
+1. [x] Hello World - Zig basics.
+2. [ ] Salary - Console app that estimates salary based on hourly, daily, monthly, and yearly rates.
+3. [ ] Tried Passwords CLI - Recreation of my [Go implementation](https://github.com/Blankeos/tried-passwords-cli).
 4. [ ] HTTP Server - Simple HTTP server to understand networking and concurrency in Zig.
 5. [ ] TCP Socket Chat - A console-based chat application using sockets to understand network communication.
 6. [ ] Random Quotes - A simple CLI application that fetches a random quote from the [API Ninjas Quotes](https://api-ninjas.com/api/quotes).
@@ -28,3 +28,7 @@ zig init
 #   build.zig
 #   build.zig.zon
 ```
+
+- I think I'm giving up after trying to implement Salary.
+  - 1: There's no library for getting the key presses.
+  - 2: Receiving user input from the terminal is EXTREMELY verbose. It's not straightforward to do.
